@@ -1,0 +1,3 @@
+GET http://task-manager.test/api/tasks
+Content-Type: application/json
+Accept: application/json
