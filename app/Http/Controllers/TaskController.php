@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTaskRequest;
 use App\Http\Resources\TaskCollection;
 use App\Http\Resources\TaskResource;
 use App\Models\Task;
@@ -19,11 +20,9 @@ class TaskController extends Controller
         return new TaskResource($task);
     }
 
-    public function store(Request $request)
+    public function store(StoreTaskRequest $request)
     {
-        $validated = $request->validate([
-            'title' => ['required', 'max:255'],
-        ]);
+        $validated = $request->validated();
         $task = Task::create($validated);
 
         return new TaskResource($task);
