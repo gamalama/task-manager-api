@@ -30,13 +30,14 @@ class Task extends Model
 
     public function project(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Project::class);
     }
 
     protected static function booted(): void
     {
-        static::addGlobalScope('creator', function (Builder $builder) {
-            $builder->where('creator_id', Auth::id());
+        static::addGlobalScope('member', function (Builder $builder) {
+            $builder->where('creator_id', Auth::id())
+                ->orWhereIn('project_id', Auth::user()->memberships->pluck('id'));
         });
     }
 }
