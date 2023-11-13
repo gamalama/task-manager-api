@@ -32,7 +32,7 @@ class ProjectController extends Controller
 
     public function show(Request $request, Project $project)
     {
-        return new ProjectResource($project);
+        return (new ProjectResource($project))->load('tasks');
     }
 
     public function update(UpdateProjectRequest $request, Project $project)
